@@ -28,12 +28,6 @@ Note that the friendlyname is provided by the monitor driver, which usually also
 ### Turn off a particular display
 ```powershell
 PS C:\> Get-Monitor -DeviceName \\.\DISPLAY3 | Set-MonitorVCPValue -VCPCode 0xD6 -Value 4
-
-LogicalDisplay FriendlyName              InstanceName
--------------- ------------              ------------
-\\.\DISPLAY1   Dell S2417DG(DisplayPort) DISPLAY\DELA0E7\5&21071cf6&0&UID12547
-\\.\DISPLAY2   Dell S2417DG(DisplayPort) DISPLAY\DELA0E7\5&21071cf6&0&UID12549
-\\.\DISPLAY3   Generic PnP Monitor       DISPLAY\GSM5788\5&21071cf6&0&UID12544
 ```
 
 ### List all supported VCP codes for the primary display
