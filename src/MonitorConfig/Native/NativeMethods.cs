@@ -47,12 +47,6 @@ namespace MartinGC94.MonitorConfig.Native
         internal static extern bool DegaussMonitor(IntPtr hMonitor);
 
         [DllImport("dxva2.dll", ExactSpelling = true, SetLastError = true)]
-        internal static extern bool GetMonitorCapabilities(
-            IntPtr hMonitor,
-            out VCPMonitorCapabilities pdwMonitorCapabilities,
-            out VCPMonitorColorTemperature pdwSupportedColorTemperatures);
-
-        [DllImport("dxva2.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool GetMonitorColorTemperature(IntPtr hMonitor, out VCPMonitorColorTemperature pctCurrentColorTemperature);
 
         [DllImport("dxva2.dll", ExactSpelling = true, SetLastError = true)]

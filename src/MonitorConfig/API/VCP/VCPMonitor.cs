@@ -78,16 +78,6 @@ namespace MartinGC94.MonitorConfig.API.VCP
             }
         }
 
-        public CapabilityInfo GetMonitorCapabilityInfo()
-        {
-            if (!NativeMethods.GetMonitorCapabilities(physicalMonitorHandle, out VCPMonitorCapabilities capabilities, out VCPMonitorColorTemperature colorTemps))
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
-
-            return new CapabilityInfo(capabilities, colorTemps);
-        }
-
         public VCPMonitorColorTemperature GetMonitorColorTemperature()
         {
             if (!NativeMethods.GetMonitorColorTemperature(physicalMonitorHandle, out VCPMonitorColorTemperature colorTemp))
