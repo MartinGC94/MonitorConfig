@@ -1,0 +1,153 @@
+Code,Name,Type,Description
+0x00,Code Page,RW,Returns the Code Page ID number Byte SL.
+0x01,Degauss,WO,Causes a CRT display to perform a degauss cycle.
+0x02,New Control Value,RW,Indicates that a displays MCCS VCP Code register value has changed.
+0x03,Soft Controls,RO,Allows applications running on the host to use control buttons on the display.
+0x04,Restore Factory Defaults,WO,"Restore all factory presets including luminance / contrast, geometry, color and TV defaults."
+0x05,Restore Factory Luminance / Contrast Defaults,WO,Restores factory defaults for luminance and contrast adjustments.
+0x06,Restore Factory Geometry Defaults,WO,Restore factory defaults for geometry adjustments.
+0x08,Restore Factory Color Defaults,WO,Restore factory defaults for color settings.
+0x0A,Restore Factory TV Defaults,WO,Restore factory defaults for TV functions.
+0x0B,User Color Temperature Increment,RO,Sets the minimum increment in which the display can adjust the color temperature.
+0x0C,User Color Temperature,RW,Multiplier of the value set in 0x0B
+0x0E,Clock,RW,Video sampling clock frequency
+0x10,Luminance,RW,Luminance of the image (Brightness control).
+0x11,Flesh Tone Enhancement,RW,This control allows for selection of contrast enhancement algorithms using a bitmask.
+0x12,Contrast,RW,Contrast of the image.
+0x13,Backlight Control,RW,This VCP code has been deprecated.
+0x14,Select Color Preset,RW,Select a specified color temperature.
+0x16,Video Gain (Drive): Red,RW,Sets the luminance of red pixels.
+0x17,User Color Vision Compensation,RW,Sets the degree of compensation. Intended to help people that see red colors poorly.
+0x18,Video Gain (Drive): Green,RW,Sets the luminance of green pixels.
+0x1A,Video Gain (Drive): Blue,RW,Sets the luminance of blue pixels.
+0x1C,Focus,RW,Sets the focus of the image.
+0x1E,Auto Setup,RW,"Perform auto setup function (H/V position, clock, clock phase, A/D converter, etc.)"
+0x1F,Auto Color Setup,RW,"Perform auto color setup function (R / G / B gain and offset, A/D setup, etc.)"
+0x20,Horizontal Position (Phase),RW,Moves the image left and right on the display.
+0x22,Horizontal Size,RW,Sets the width of the image.
+0x24,Horizontal Pincushion,RW,Makes the left/right sides of the image more/less convex.
+0x26,Horizontal Pincushion Balance,RW,Increasing (decreasing) this value will move the center section of the image toward the right (left) side of the display.
+0x28,Horizontal Convergence R/B,RW,Increasing (decreasing) this value will shift the red pixels to the right (left) across the image and the blue pixels left (right) across the image with respect to the green pixels.
+0x29,Horizontal Convergence M/G,RW,Increasing (decreasing) this value will shift the magenta pixels to the right (left) across the image and the green pixels left (right) across the image with respect to the magenta pixels
+0x2A,Horizontal Linearity,RW,Increasing (decreasing) this value will increase (decrease) the density of pixels in the image center
+0x2C,Horizontal Linearity Balance,RW,Increasing (decreasing) this value shifts the density of pixels from the left (right) side to the right (left) side of the image.
+0x2E,Gray Scale Expansion,RW,Expands the gray scale either in the near white region or the near black region (or both).
+0x30,Vertical Position {Phase},RW,Increasing (decreasing) this value moves the image toward the top (bottom) edge of the display.
+0x32,Vertical Size,RW,Increasing (decreasing) this value will increase (decrease) the height of the image
+0x34,Vertical Pincushion,RW,Increasing (decreasing) this value will cause the top and bottom edges of the image to become more (less) convex.
+0x36,Vertical Pincushion Balance,RW,Increasing (decreasing) this value will move the center section of the image toward the top (bottom) edge of the display.
+0x38,Vertical Convergence R/B,RW,Increasing (decreasing) this value shifts the red pixels up (down) across the image and the blue pixels down (up) across the image with respect to the green pixels.
+0x39,Vertical Convergence M/G,RW,Increasing (decreasing) this value will shift the magenta pixels up (down) across the image and the green pixels down (up) across the image with respect to the magenta pixels
+0x3A,Vertical Linearity,RW,Increasing (decreasing) this value will increase (decrease) the density of scan lines in the image center.
+0x3C,Vertical Linearity Balance,RW,Increasing (decreasing) this value shifts the density of scan lines from the top (bottom) end to the bottom (top) end of the image
+0x3E,Clock Phase,RW,Increasing (decreasing) this value will increase (decrease) the phase shift of the sampling clock.
+0x40,Horizontal Parallelogram,RW,Increasing (decreasing) this value shifts the top section of the image to the right (left) with respect to the bottom section of the image
+0x41,Vertical Parallelogram,RW,Increasing (decreasing) this value shifts the top section of the image to the right (left) with respect to the bottom section of the image.
+0x42,Horizontal Keystone,RW,Increasing (decreasing) this value will increase (decrease) the horizontal size at the top of the image with respect to the horizontal size at the bottom of the image
+0x43,Vertical Keystone,RW,Increasing (decreasing) this value will increase (decrease) the vertical size at the left of the image with respect to the vertical size at the right of the image
+0x44,Rotation,RW,Increasing (decreasing) this value rotates the image (counter) clockwise about the center point of the screen.
+0x46,Top Corner Flare,RW,Increasing (decreasing) this value will increase (decrease) the distance between the left and right sides at the top of the image.
+0x48,Top Corner Hook,RW,Increasing (decreasing) this value moves the top of the image to the right (left).
+0x4A,Bottom Corner Flare,RW,Increasing (decreasing) this value will increase (decrease) the distance between the left and right sides at the bottom of the image
+0x4C,Bottom Corner Hook,RW,Increasing (decreasing) this value moves the bottom of the image to the right (left).
+0x52,Active Control,RO,All VCP Codes that have new values must be added to this FIFO in the order they occur and VCP 02h must be set to = 02h when this FIFO is NOT empty.
+0x54,Performance Preservation,RW,This command provides the capability to control up to 16 features aimed at maintaining the performance of a display.
+0x56,Horizontal Moir,RW,Increasing (decreasing) this value controls the horizontal picture moir cancellation.
+0x58,Vertical Moir,RW,Increasing (decreasing) this value controls the vertical picture moir cancellation.
+0x59,6 Axis Saturation Control: Red,RW,Adjust the red saturation for 6-axis color.
+0x5A,6 Axis Saturation Control: Yellow,RW,Adjust the yellow saturation for 6-axis color.
+0x5B,6 Axis Saturation Control: Green,RW,Adjust the green saturation for 6-axis color.
+0x5C,6 Axis Saturation Control: Cyan,RW,Adjust the cyan saturation for 6-axis color.
+0x5D,6 Axis Saturation Control: Blue,RW,Adjust the blue saturation for 6-axis color.
+0x5E,6 Axis Saturation Control: Magenta,RW,Adjust the magenta saturation for 6-axis color.
+0x60,Input Select,RW,Adjusts the active input on the display.
+0x62,Audio: Speaker Volume,RW,Allows the volume to be adjusted.
+0x63,Speaker Select,RW,Selects the active speakers on the display
+0x64,Audio: Microphone Volume,RW,Sets the microphone gain.
+0x65,Audio: Jack Connection Status,RO,"This bitmask allows the source to determine the capabilities as well as the current configuration of speakers/lineout connected to a display, or active in an audio only device"
+0x66,Ambient Light Sensor,RW,Used to control the action of an ambient light sensor
+0x6B,Backlight Level: White,RW,Sets the White backlight level of the image.
+0x6C,Video Black Level: Red,RW,Sets the black level of the red video.
+0x6D,Backlight Level: Red,RW,Sets the Red backlight level of the image.
+0x6E,Video Black Level: Green,RW,Sets the black level of the green video.
+0x6F,Backlight Level: Green,RW,Sets the Green backlight level of the image.
+0x70,Video Black Level: Blue,RW,Sets the black level of the blue video
+0x71,Backlight Level: Blue,RW,Sets the Blue backlight level of the image.
+0x72,Gamma,RW,"This VCP code has two distinct modes, it may be used to select an absolute (within a defined tolerance) value for gamma, or it may be used to select a value of gamma relative to the default gamma of the display"
+0x73,LUT Size,RO,Provides the size (number of entries and number of bits / entry) for the Red / Green and Blue LUT in the display
+0x74,Single Point LUT Operation,RW,Allows a single point within a displays color LUT (look up table) to be loaded.
+0x75,Block LUT Operation,RW,Provides an efficient method for loading multiple values into a displays LUT.
+0x76,Remote Procedure Call,WO,Allows initiation of a routine / macro resident in the display.
+0x78,Display Identification on Data Operation,RO,"This command allows a selected block (128 bytes) of Display Identification Data (e.g., EDID or DisplayID) to be read."
+0x7C,Adjust Zoom,RW,Sets the zoom function of the projection lens.
+0x82,Horizontal Mirror (Flip),RW,This VCP code allows the image to be mirrored horizontally.
+0x84,Vertical Mirror (Flip),RW,This VCP code allows the image to be mirrored vertically.
+0x86,Display Scaling,RW,Changing this value will affect the scaling (input versus output) function of the display. NOTE: This VCP code can be used to scale up or down to the maximum screen size.
+0x87,Sharpness,RW,Allows one of a range of algorithms to be selected to suit the type of image being displayed and/or personal preference.
+0x88,Velocity Scan Modulation,RW,Increasing (decreasing) this value will increase (decrease) the velocity modulation of the horizontal scan as a function of a change in the luminance level.
+0x8A,Color Saturation,RW,Increasing this control increases the amplitude of the color difference components of the video signal.
+0x8B,TVChannel Up / Down,WO,"Used to increment / decrement between TV-channels, the exact behavior is implementation specific (e.g. increment / decrement to next numeric channel or increment / decrement to next channel with a signal)."
+0x8C,TV-Sharpness,RW,Increasing this control increases the amplitude of the high frequency components of the video signal.
+0x8D,Audio Mute / Screen Blank,RW,Provides for the audio to be muted or un-muted.
+0x8E,TV-Contrast,RW,Increasing (decreasing) this control increases (decreases) the ratio between whites and blacks in the video.
+0x8F,Audio Treble,RW,Allows control of the high frequency component of the audio.
+0x90,Hue,RW,Also known as tint Increasing (decreasing) this control increases (decreases) the wavelength of the color component of the video signal.
+0x91,Audio Bass,RW,Allows control of the low frequency component of the audio.
+0x92,TV-Black Level / Luminance,RW,"Increasing this control increases the black level of the video, resulting in an increase of the luminance level of the video."
+0x93,Audio Balance L / R,RW,This control affects the left right balance of audio output. Increasing (decreasing) the value will cause the balance to move to the right (left).
+0x94,Audio Processor Mode,RW,This control allows one of several audio processing modes to be selected.
+0x95,Window Position (TL_X),RW,Defines the top left X pixel of an area of the image. Specified in coordinates of incoming image before any scaling etc. in the display.
+0x96,Window Position (TL_Y),RW,Defines the top left Y pixel of an area of the image. Specified in coordinates of incoming image before any scaling etc. in the display.
+0x97,Window Position (BR_X),RW,Defines the bottom right X pixel of an area of the image. Specified in co-ordinates of the incoming image before any scaling etc. in the display.
+0x98,Window Position (BR_Y),RW,Defines the bottom right Y pixel of an area of the image. Specified in co-ordinates of the incoming image before any processing (e.g. scaling) in the display
+0x9A,Window Background,RW,Changes the contrast ratio between the area of the window and the rest of the desktop
+0x9B,6 Axis Hue Control: Red,RW,Adjust the red hue for 6-axis color
+0x9C,6 Axis Hue Control: Yellow,RW,Adjust the yellow hue for 6-axis color
+0x9D,6 Axis Hue Control: Green,RW,Adjust the green hue for 6-axis color
+0x9E,6 Axis Hue Control: Cyan,RW,Adjust the cyan hue for 6-axis color
+0x9F,6 Axis Hue Control: Blue,RW,Adjust the blue hue for 6-axis color
+0xA0,6 Axis Hue Control: Magenta,RW,Adjust the magenta hue for 6-axis color
+0xA2,Auto Setup On / Off,WO,Turn on / off the auto setup function (periodic or event driven)
+0xA4,Window Mask Control,RW,Data size: Write / Read = 10 bytes This code has two sets of functions:
+0xA5,Window Select,RW,Change the selected window (as defined by 95h 98h).
+0xA6,Window Size,RW,Increasing (decreasing) this value will increase (decrease) the size of the window called out by VCP A5
+0xA7,Window Transparency,RW,Increasing (decreasing) this value will increase (decrease) the transparency of the window called out by A5
+0xAA,Screen Orientation,RO,Indicates the orientation of the screen
+0xAC,Horizontal Frequency,RO,Horizontal synchronization signal frequency in Hz as determined by the display.
+0xAE,Vertical Frequency,RO,Vertical synchronization signal frequency in 0.01Hz as determined by the display
+0xB0,Settings,WO,Store/Restore the user saved values for current mode
+0xB2,Flat Panel Sub-Pixel Layout,RO,Indicates the type of LCD sub-pixel structure
+0xB4,Source Timing Mode,RW,Indicates the timing mode being sent by the host.
+0xB5,Source Color Coding,WO,Allows the host to specify the color coding method that is being used.
+0xB6,Display Technology Type,RO,Indicates the base technology type.
+0xB7,Monitor Status,RO,Video mode and status of a DPVL capable monitor.
+0xB8,Packet Count,RW,Counter for the DPVL packets received (valid and invalid ones). This value counts from 00 00h to FF FFh and then rolls over to 00 00h. The host can reset the value to 00 00h
+0xB9,Monitor X Origin,RW,"The X origin of the monitor in the virtual screen. The support of this command indicates the multi-display support of the display. If a display supports this command, the monitor must also support Monitor Y Origin command"
+0xBA,Monitor Y Origin,RW,"The Y origin of the display in the virtual screen. The support of this command indicates the multi-display support of the display. If a display supports this command, the monitor must also support Monitor X Origin command"
+0xBB,Header Error Count,RW,Error Counter for the DPVL header. The counter value saturates at FF FFh. Host can reset to 00 00h.
+0xBC,Body CRC Error Count,RW,CRC error Counter for the DPVL body (containing video data). The counter value saturates at FF FFh. The Host can reset to 00 00h
+0xBD,Client ID,RW,Assigned identification number for the monitor. Valid range is 0000h to FF FEh FF FFh is reserved for broadcast.
+0xBE,Link Control,RW,Indicates the status of the DVI link
+0xC0,Display Usage Time,RO,"Returns the current value (in hours) of active power on time accumulated by the display in the ML, SH and SL bytes"
+0xC2,Display Descriptor Length,RO,Returns the length (in bytes) of non-volatile storage in the display available for writing a display descriptor the maximum descriptor length is 256 bytes
+0xC3,Transmit Display Descriptor,RW,Allows a display descriptor (up to maximum length defined by the display (see code C2h) to be written (read) to (from) nonvolatile storage in the display.
+0xC4,Enable Display of Display Descriptor,RW,"If enabled, the display descriptor written to the display using VCP code C3h must be displayed when no video is being received."
+0xC6,Application Enable Key,RO,"A 2-byte value used to allow an application to only operate with known products. The display manufacturer and application author agree to a code such that application will only run when a valid code is present in the display."
+0xC7,Display Enable Key,WO,This VCP code has been deprecated. It must NOT be implemented in new designs!
+0xC8,Display Controller ID,RO,Contains the ID for the display controller. 1st byte is parsed as the OEM ID, next 3 bytes is a unique chip ID assigned by the OEM.
+0xC9,Display Firmware Level,RO,Contains the firmware version of the display. 1st byte is parsed as the revision number. 2nd byte is the major version. 3rd and 4th are unused.
+0xCA,OSD / Button Control,RW,Sets and indicates the current operational state of the display OSD and buttons
+0xCC,OSD Language,RW,Allows the host to select the display OSD language.
+0xCD,Status Indicators (Host),RW,This command provides the capability to control up to 16 LED (or similar) indicators which may be used to indicate aspects of the host system status
+0xCE,Auxiliary Display Size,RO,An auxiliary display is a small alphanumeric display associated with the primary display and able to be accessed via the primary display
+0xCF,Auxiliary Display Data,WO,An auxiliary display is a small alphanumeric display associated with the primary display and able to be accessed via the primary display.
+0xD0,Output Select,RW,"A one byte write/read (Byte 0), allows the host to set (write) one and only one source to output and identify (read) the current output setting"
+0xD2,Asset Tag,RW,This VCP codes allows an Asset Tag to be written to a display or read from a display. It also allows for control by the display manufacturer of which applications may write an asset tag.
+0xD4,Stereo Video Mode,RW,Used to select the video mode with respect to 2D or 3D video.
+0xD6,Power Mode,RW,"Controls the power mode of the display. 0 = Reserved, 1 = On, 2 = Standby, 3 = Suspend, 4 and 5 = Off"
+0xD7,Auxiliary Power Output,RW,Controls output of an auxiliary power output from a display to a host device.
+0xDA,Scan Mode,RW,Controls the scan characteristics.
+0xDB,Image Mode,RW,Controls aspects of the displayed image
+0xDC,Display Application,RW,"Select an image preset like Standard, Movie, Games, etc."
+0xDE,Scratch Pad,RW,Provides 2 bytes of volatile storage for use of software application(s) leading to more efficient operation.
+0xDF,VCP Version,RO,Defines the version number of the MCCS standard recognized by the display.
