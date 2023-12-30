@@ -10,7 +10,7 @@ namespace MartinGC94.MonitorConfig.Commands
     public sealed class GetMonitorBrightnessCommand : Cmdlet
     {
         #region parameters
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public Monitor[] Monitor { get; set; }
         #endregion
 

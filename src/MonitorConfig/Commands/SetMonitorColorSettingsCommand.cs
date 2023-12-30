@@ -11,7 +11,7 @@ namespace MartinGC94.MonitorConfig.Commands
     public sealed class SetMonitorColorSettingsCommand : PSCmdlet
     {
         #region parameters
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public VCPMonitor[] Monitor { get; set; }
 
         [Parameter()]

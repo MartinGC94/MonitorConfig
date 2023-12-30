@@ -10,10 +10,10 @@ namespace MartinGC94.MonitorConfig.Commands
     public sealed class ResetMonitorSettingsCommand : Cmdlet
     {
         #region parameters
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public VCPMonitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true, Position = 1)]
+        [Parameter(Mandatory = true)]
         public ResetKind Kind;
         #endregion
 
