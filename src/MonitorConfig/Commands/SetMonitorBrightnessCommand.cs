@@ -15,8 +15,8 @@ namespace MartinGC94.MonitorConfig.Commands
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public Monitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "Default")]
-        [Parameter(Mandatory = false, ParameterSetName = "WMIOptions")]
+        [Parameter(Mandatory = true, ParameterSetName = "Default", Position = 0)]
+        [Parameter(Mandatory = false, ParameterSetName = "WMIOptions", Position = 0)]
         [ValidateRange(0, 100)]
         public uint Value { get; set; }
 

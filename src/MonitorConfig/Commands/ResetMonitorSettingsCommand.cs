@@ -13,7 +13,7 @@ namespace MartinGC94.MonitorConfig.Commands
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public VCPMonitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, Position = 0)]
         public ResetKind Kind;
         #endregion
 

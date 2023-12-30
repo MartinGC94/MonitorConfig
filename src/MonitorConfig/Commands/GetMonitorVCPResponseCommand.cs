@@ -10,15 +10,17 @@ namespace MartinGC94.MonitorConfig.Commands
     [OutputType(typeof(VCPFeatureResponse))]
     public sealed class GetMonitorVCPResponseCommand : Cmdlet
     {
+        #region Parameters
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public VCPMonitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "SpecifiedCode")]
+        [Parameter(Mandatory = true, ParameterSetName = "SpecifiedCode", Position = 0)]
         [ArgumentCompleter(typeof(VCPCodeCompleter))]
         public byte[] VCPCode { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = "All")]
         public SwitchParameter All { get; set; }
+        #endregion
 
         protected override void ProcessRecord()
         {

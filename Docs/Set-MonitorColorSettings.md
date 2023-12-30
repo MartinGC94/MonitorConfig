@@ -13,7 +13,7 @@ Allows adjustment of various color related settings on the specified monitors.
 ## SYNTAX
 
 ```
-Set-MonitorColorSettings [-Monitor] <VCPMonitor[]> [-RedDrive <UInt32>] [-RedGain <UInt32>]
+Set-MonitorColorSettings -Monitor <VCPMonitor[]> [-RedDrive <UInt32>] [-RedGain <UInt32>]
  [-GreenDrive <UInt32>] [-GreenGain <UInt32>] [-BlueDrive <UInt32>] [-BlueGain <UInt32>]
  [-RedSaturation <UInt32>] [-YellowSaturation <UInt32>] [-GreenSaturation <UInt32>] [-CyanSaturation <UInt32>]
  [-BlueSaturation <UInt32>] [-MagentaSaturation <UInt32>] [-ColorSaturation <UInt32>]
@@ -225,7 +225,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False

@@ -1,2 +1,4 @@
+1.0.1:
+    Add positions for various parameters.
 1.0:
     Initial release.

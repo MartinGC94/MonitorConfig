@@ -10,8 +10,10 @@ namespace MartinGC94.MonitorConfig.Commands
     [OutputType(typeof(MonitorDetails))]
     public sealed class GetMonitorDetailsCommand : Cmdlet
     {
+        #region parameters
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public VCPMonitor[] Monitor { get; set; }
+        #endregion
 
         protected override void ProcessRecord()
         {

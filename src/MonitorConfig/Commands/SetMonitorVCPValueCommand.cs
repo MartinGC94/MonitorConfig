@@ -13,11 +13,11 @@ namespace MartinGC94.MonitorConfig.Commands
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public VCPMonitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, Position = 0)]
         [ArgumentCompleter(typeof(VCPCodeCompleter))]
         public byte VCPCode { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, Position = 1)]
         public uint Value { get; set; }
         #endregion
 
