@@ -18,6 +18,7 @@ Remove-Module -ModuleInfo $ModuleInfo
 $DocFiles = Get-ChildItem -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath Docs) -ErrorAction Ignore
 if ($DocFiles)
 {
+    $null = New-Item -Path "$OutputDir\en-US" -ItemType Directory -Force
     $HelpFile = New-ExternalHelp -Path "$PSScriptRoot\Docs" -OutputPath "$OutputDir\en-US" -ErrorAction Stop -Force
     $HelpContent = [xml]::new()
     $HelpContent.Load($HelpFile.FullName)
