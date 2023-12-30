@@ -10,7 +10,7 @@ namespace MartinGC94.MonitorConfig.API
         public SaturationInfo SaturationInfo { get; }
         public VCPMonitorColorTemperature ColorTemperature { get; }
         public ContrastInfo ContrastInfo { get; }
-        //public VCPValue GrayScaleExpansion { get; }
+        public GrayScaleValue GrayScaleExpansion { get; }
         public VCPValue Gamma { get; }
 
         internal MonitorColorInfo(
@@ -19,7 +19,7 @@ namespace MartinGC94.MonitorConfig.API
             SaturationInfo saturationData,
             VCPMonitorColorTemperature colorTemp,
             ContrastInfo contrastData,
-            //VCPValue grayScaleData,
+            GrayScaleValue grayScaleData,
             VCPValue gammaData)
         {
             DriveInfo = driveData;
@@ -27,7 +27,7 @@ namespace MartinGC94.MonitorConfig.API
             SaturationInfo = saturationData;
             ColorTemperature = colorTemp;
             ContrastInfo = contrastData;
-            //GrayScaleExpansion = grayScaleData;
+            GrayScaleExpansion = grayScaleData;
             Gamma = gammaData;
         }
     }

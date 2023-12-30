@@ -17,8 +17,8 @@ Set-MonitorColorSettings [-Monitor] <VCPMonitor[]> [-RedDrive <UInt32>] [-RedGai
  [-GreenDrive <UInt32>] [-GreenGain <UInt32>] [-BlueDrive <UInt32>] [-BlueGain <UInt32>]
  [-RedSaturation <UInt32>] [-YellowSaturation <UInt32>] [-GreenSaturation <UInt32>] [-CyanSaturation <UInt32>]
  [-BlueSaturation <UInt32>] [-MagentaSaturation <UInt32>] [-ColorSaturation <UInt32>]
- [-ColorTemperature <VCPMonitorColorTemperature>] [-Contrast <UInt32>] [-GrayScaleExpansion <UInt32>]
- [-Gamma <UInt32>] [<CommonParameters>]
+ [-ColorTemperature <VCPMonitorColorTemperature>] [-Contrast <UInt32>] [-GrayScaleWhiteExpansion <UInt32>]
+ [-GrayScaleBlackExpansion <UInt32>] [-Gamma <UInt32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -278,6 +278,38 @@ Accept wildcard characters: False
 
 ### -YellowSaturation
 Adjusts how saturated the yellow color should be.
+
+```yaml
+Type: UInt32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -GrayScaleBlackExpansion
+Expands the gray scale in the near black region, making darks appear more light or gray.  
+Values between 0-3 can be used.
+
+```yaml
+Type: UInt32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -GrayScaleWhiteExpansion
+Expands the gray scale in the near white region, making whites appear more dark or gray.  
+Values between 0-3 can be used.
 
 ```yaml
 Type: UInt32

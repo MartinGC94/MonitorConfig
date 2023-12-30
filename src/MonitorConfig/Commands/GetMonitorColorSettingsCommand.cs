@@ -97,16 +97,19 @@ namespace MartinGC94.MonitorConfig.Commands
                     WriteWarning($"Failed to get contrast info for monitor {inputMonitor.FriendlyName}");
                 }
 
-                //VCPValue grayScale;
-                //try
-                //{
-                //    grayScale = new VCPValue(inputMonitor.GetVCPFeatureResponse(KnownVcpCodes.GrayScaleExpansion));
-                //}
-                //catch (Win32Exception)
-                //{
-                //    grayScale = null;
-                //    WriteWarning($"Failed to get gray scale expansion response from monitor {inputMonitor.FriendlyName}");
-                //}
+                GrayScaleValue grayScale;
+                try
+                {
+                    uint rawValue = inputMonitor.GetVCPFeatureResponse(KnownVcpCodes.GrayScaleExpansion).CurrentValue;
+                    uint nearBlackValue = (rawValue << 24) >> 24;
+                    uint nearWhiteValue = (rawValue << 16) >> 24;
+                    grayScale = new GrayScaleValue(nearWhiteValue, nearBlackValue);
+                }
+                catch (Win32Exception)
+                {
+                    grayScale = null;
+                    WriteWarning($"Failed to get gray scale expansion response from monitor {inputMonitor.FriendlyName}");
+                }
 
                 VCPValue gamma;
                 try
@@ -120,7 +123,7 @@ namespace MartinGC94.MonitorConfig.Commands
                 }
 
 
-                WriteObject(new MonitorColorInfo(driveInfo, gainInfo, saturationInfo, colorTemp, contrastInfo/*, grayScale*/, gamma));
+                WriteObject(new MonitorColorInfo(driveInfo, gainInfo, saturationInfo, colorTemp, contrastInfo, grayScale, gamma));
             }
         }
     }
