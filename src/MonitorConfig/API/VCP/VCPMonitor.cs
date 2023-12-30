@@ -16,6 +16,8 @@ namespace MartinGC94.MonitorConfig.API.VCP
         // Errors that we expect to see when scanning for valid VCP codes
         private const int ERROR_GRAPHICS_DDCCI_VCP_NOT_SUPPORTED = -1071241852;
         private const int ERROR_GRAPHICS_I2C_ERROR_TRANSMITTING_DATA = -1071241854;
+        // Not expected, but bad implementations of individual codes should not stop the scan
+        private const int ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_LENGTH = -1071241846;
 
         internal VCPMonitor(LogicalDisplay logicalDisplay, string friendlyName, string instanceName, IntPtr handle) : base(logicalDisplay, friendlyName, instanceName)
         {
@@ -212,7 +214,9 @@ namespace MartinGC94.MonitorConfig.API.VCP
                 else
                 {
                     int errorId = Marshal.GetLastWin32Error();
-                    if (errorId != ERROR_GRAPHICS_DDCCI_VCP_NOT_SUPPORTED && errorId != ERROR_GRAPHICS_I2C_ERROR_TRANSMITTING_DATA)
+                    if (errorId != ERROR_GRAPHICS_DDCCI_VCP_NOT_SUPPORTED &&
+                        errorId != ERROR_GRAPHICS_I2C_ERROR_TRANSMITTING_DATA &&
+                        errorId != ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_LENGTH)
                     {
                         throw new Win32Exception(errorId);
                     }
