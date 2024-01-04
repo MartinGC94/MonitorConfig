@@ -17,7 +17,6 @@ namespace MartinGC94.MonitorConfig.Commands
 
         [Parameter(Mandatory = true, ParameterSetName = "Default", Position = 0)]
         [Parameter(Mandatory = false, ParameterSetName = "WMIOptions", Position = 0)]
-        [ValidateRange(0, 100)]
         public uint Value { get; set; }
 
         [Parameter(ParameterSetName = "WMIOptions")]
@@ -30,7 +29,6 @@ namespace MartinGC94.MonitorConfig.Commands
         public bool ALSEnabled { get; set; }
 
         [Parameter(ParameterSetName = "WMIOptions")]
-        [ValidateRange(0, 100)]
         public byte ALSBrightness { get; set; }
         #endregion
 

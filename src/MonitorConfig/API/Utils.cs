@@ -86,8 +86,12 @@ namespace MartinGC94.MonitorConfig.API
         /// </summary>
         internal static bool IsTerminatingError(this Win32Exception exception)
         {
-            int e = exception.NativeErrorCode;
-            return e == ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE;
+            return IsTerminatingErrorCode(exception.NativeErrorCode);
+        }
+
+        internal static bool IsTerminatingErrorCode(int nativeErrorCode)
+        {
+            return nativeErrorCode == ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE;
         }
     }
 }
