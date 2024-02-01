@@ -1,3 +1,5 @@
+1.0.3:
+    Fix index out of bounds error for Get-Monitor when an attached monitor is disabled.
 1.0.2:
     Remove ValidateRange attributes from the Value and ALSBrightness parameters of Set-MonitorBrightness.
     Don't throw when scanning for VCP features, unless the monitor handle is closed.

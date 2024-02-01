@@ -50,7 +50,11 @@ namespace MartinGC94.MonitorConfig.API
                     break;
                 }
 
-                result.Add(displayInfo);
+                if ((displayInfo.stateFlags << 31) >> 31 == 1)
+                {
+                    result.Add(displayInfo);
+                }
+
                 deviceIndex++;
             }
 

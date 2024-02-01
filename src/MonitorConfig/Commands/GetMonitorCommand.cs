@@ -51,7 +51,7 @@ namespace MartinGC94.MonitorConfig.Commands
             PhysicalMonitor[] physicalMonitors = logicalDisplay.GetPhysicalMonitors();
             List<DisplayDevice> physicalDisplayInfo = logicalDisplay.GetDisplayDevices();
 
-            for (int i = 0; i < physicalDisplayInfo.Count; i++)
+            for (int i = 0; i < physicalMonitors.Length; i++)
             {
                 PhysicalMonitor physicalMonitor = physicalMonitors[i];
                 DisplayDevice displayDevice = physicalDisplayInfo[i];
