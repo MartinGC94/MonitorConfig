@@ -13,8 +13,7 @@ Resets various monitor settings to their factory defaults.
 ## SYNTAX
 
 ```
-Reset-MonitorSettings [-Monitor] <VCPMonitor[]> [-Kind] <ResetKind> 
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Reset-MonitorSettings -Monitor <VCPMonitor[]> [-Kind] <ResetKind> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

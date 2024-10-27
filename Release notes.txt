@@ -1,3 +1,9 @@
+2.0:
+    Added an argument transformer and argument completer to the "Monitor" parameter for all commands.
+        This allows users to specify the monitors with the device name like: Set-MonitorBrightness -Monitor \\.\DISPLAY1 -Value 10
+    Added position 0 to the Monitor parameter for all commands with that parameter.
+        Other positional parameters have been bumped up by 1 as needed.
+    Added position 0 to the DeviceName parameter for the Get-Monitor command.
 1.0.3:
     Fix index out of bounds error for Get-Monitor when an attached monitor is disabled.
 1.0.2:

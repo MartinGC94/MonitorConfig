@@ -17,7 +17,7 @@ namespace MartinGC94.MonitorConfig.Commands
         [Parameter(ParameterSetName = "GetPrimaryMonitor")]
         public SwitchParameter Primary { get; set; }
 
-        [Parameter(ParameterSetName = "Default")]
+        [Parameter(ParameterSetName = "Default", Position = 0)]
         [SupportsWildcards()]
         [ArgumentCompleter(typeof(DeviceNameCompleter))]
         public string[] DeviceName { get; set; }

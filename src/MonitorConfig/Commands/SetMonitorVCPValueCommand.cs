@@ -10,14 +10,16 @@ namespace MartinGC94.MonitorConfig.Commands
     public sealed class SetMonitorVCPValueCommand : Cmdlet
     {
         #region parameters
-        [Parameter(Mandatory = true, ValueFromPipeline = true)]
+        [MonitorArgTransformer()]
+        [ArgumentCompleter(typeof(DeviceNameCompleter))]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public VCPMonitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = true, Position = 1)]
         [ArgumentCompleter(typeof(VCPCodeCompleter))]
         public byte VCPCode { get; set; }
 
-        [Parameter(Mandatory = true, Position = 1)]
+        [Parameter(Mandatory = true, Position = 2)]
         public uint Value { get; set; }
         #endregion
 

@@ -13,7 +13,7 @@ Returns brightness details (Min, Max and current value) for the specified monito
 ## SYNTAX
 
 ```
-Get-MonitorBrightness [-Monitor] <Monitor[]> [<CommonParameters>]
+Get-MonitorBrightness -Monitor <Monitor[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

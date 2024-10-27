@@ -13,7 +13,7 @@ Returns color and contrast information about the specified display(s).
 ## SYNTAX
 
 ```
-Get-MonitorColorSettings [-Monitor] <VCPMonitor[]> [<CommonParameters>]
+Get-MonitorColorSettings -Monitor <VCPMonitor[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

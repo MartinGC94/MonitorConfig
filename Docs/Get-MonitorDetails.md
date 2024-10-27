@@ -13,7 +13,7 @@ Returns details of the specified monitor(s) like DDC capabilities, firmware vers
 ## SYNTAX
 
 ```
-Get-MonitorDetails [-Monitor] <VCPMonitor[]> [<CommonParameters>]
+Get-MonitorDetails -Monitor <VCPMonitor[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

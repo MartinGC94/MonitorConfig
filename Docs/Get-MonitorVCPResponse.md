@@ -14,13 +14,12 @@ Query the specified monitors for the specified VCP codes.
 
 ### SpecifiedCode
 ```
-Get-MonitorVCPResponse [-Monitor] <VCPMonitor[]> -VCPCode <Byte[]> [<CommonParameters>]
- [<CommonParameters>]
+Get-MonitorVCPResponse -Monitor <VCPMonitor[]> -VCPCode <Byte[]> [<CommonParameters>]
 ```
 
 ### All
 ```
-Get-MonitorVCPResponse [-Monitor] <VCPMonitor[]> [-All] [<CommonParameters>]
+Get-MonitorVCPResponse -Monitor <VCPMonitor[]> [-All] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

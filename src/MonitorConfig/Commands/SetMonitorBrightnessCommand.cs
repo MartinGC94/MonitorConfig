@@ -12,11 +12,13 @@ namespace MartinGC94.MonitorConfig.Commands
     public sealed class SetMonitorBrightnessCommand : PSCmdlet
     {
         #region parameters
-        [Parameter(Mandatory = true, ValueFromPipeline = true)]
+        [MonitorArgTransformer()]
+        [ArgumentCompleter(typeof(DeviceNameCompleter))]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public Monitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "Default", Position = 0)]
-        [Parameter(Mandatory = false, ParameterSetName = "WMIOptions", Position = 0)]
+        [Parameter(Mandatory = true, ParameterSetName = "Default", Position = 1)]
+        [Parameter(Mandatory = false, ParameterSetName = "WMIOptions", Position = 1)]
         public uint Value { get; set; }
 
         [Parameter(ParameterSetName = "WMIOptions")]

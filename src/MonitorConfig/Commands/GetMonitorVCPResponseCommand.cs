@@ -11,10 +11,12 @@ namespace MartinGC94.MonitorConfig.Commands
     public sealed class GetMonitorVCPResponseCommand : Cmdlet
     {
         #region Parameters
-        [Parameter(Mandatory = true, ValueFromPipeline = true)]
+        [MonitorArgTransformer()]
+        [ArgumentCompleter(typeof(DeviceNameCompleter))]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public VCPMonitor[] Monitor { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "SpecifiedCode", Position = 0)]
+        [Parameter(Mandatory = true, ParameterSetName = "SpecifiedCode", Position = 1)]
         [ArgumentCompleter(typeof(VCPCodeCompleter))]
         public byte[] VCPCode { get; set; }
 

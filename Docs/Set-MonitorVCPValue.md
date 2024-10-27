@@ -13,7 +13,7 @@ Adjusts the value of the specified VCP code with the specified value.
 ## SYNTAX
 
 ```
-Set-MonitorVCPValue [-Monitor] <VCPMonitor[]> [-VCPCode] <Byte> [-Value] <UInt32> [<CommonParameters>]
+Set-MonitorVCPValue -Monitor <VCPMonitor[]> [-VCPCode] <Byte> [-Value] <UInt32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

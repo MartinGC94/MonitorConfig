@@ -25,7 +25,7 @@ namespace MartinGC94.MonitorConfig.API
             return "Unknown";
         }
 
-        private static Dictionary<uint, string> DisplayControllerOEMTable = new Dictionary<uint, string>()
+        private static readonly Dictionary<uint, string> DisplayControllerOEMTable = new Dictionary<uint, string>()
         {
             {0x00, "Reserved"},
             {0x01, "Conexant"},

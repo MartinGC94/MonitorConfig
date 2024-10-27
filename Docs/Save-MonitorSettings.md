@@ -13,7 +13,7 @@ Issues a command to save the current display settings on the specified monitor.
 ## SYNTAX
 
 ```
-Save-MonitorSettings [-Monitor] <VCPMonitor[]> [<CommonParameters>]
+Save-MonitorSettings -Monitor <VCPMonitor[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

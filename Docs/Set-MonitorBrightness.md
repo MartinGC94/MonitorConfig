@@ -14,12 +14,12 @@ Sets the monitor brightness on the specified monitors.
 
 ### Default (Default)
 ```
-Set-MonitorBrightness [-Monitor] <Monitor[]> [-Value] <UInt32> [<CommonParameters>]
+Set-MonitorBrightness -Monitor <Monitor[]> [-Value] <UInt32> [<CommonParameters>]
 ```
 
 ### WMIOptions
 ```
-Set-MonitorBrightness [-Monitor] <Monitor[]> [[-Value] <UInt32>] [-Timeout <UInt32>] [-RevertToPolicy]
+Set-MonitorBrightness -Monitor <Monitor[]> [[-Value] <UInt32>] [-Timeout <UInt32>] [-RevertToPolicy]
  [-ALSEnabled <Boolean>] [-ALSBrightness <Byte>] [<CommonParameters>]
 ```
 
