@@ -16,15 +16,37 @@ namespace MartinGC94.MonitorConfig.Commands
         public VCPMonitor[] Monitor { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = "BySource", Position = 1)]
-        public MonitorInputSource Source { get; set; }
+        [ArgumentCompleter(typeof(MonitorInputSourceCompleter))]
+        public string Source { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = "ByValue", Position = 1)]
+        [ArgumentCompleter(typeof(MonitorInputValueCompleter))]
         public uint Value { get; set; }
         #endregion
 
         protected override void ProcessRecord()
         {
-            uint targetValue = ParameterSetName.Equals("BySource") ? (uint)Source : Value;
+            uint targetValue;
+            if (ParameterSetName.Equals("BySource"))
+            {
+                if (!Enum.TryParse<MonitorInputSource>(Source, true, out MonitorInputSource parsed))
+                {
+                    string validValues = string.Join(", ", Enum.GetNames(typeof(MonitorInputSource)));
+                    ThrowTerminatingError(new ErrorRecord(
+                        new ArgumentException(
+                            $"'{Source}' is not a valid MonitorInputSource. Valid values: {validValues}. " +
+                            "For values outside the MCCS spec (e.g. USB-C), use the -Value parameter instead."),
+                        "InvalidInputSource",
+                        ErrorCategory.InvalidArgument,
+                        Source));
+                    return;
+                }
+                targetValue = (byte)parsed;
+            }
+            else
+            {
+                targetValue = Value;
+            }
 
             foreach (VCPMonitor inputMonitor in Monitor)
             {

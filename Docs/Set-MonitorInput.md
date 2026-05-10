@@ -14,7 +14,7 @@ Sets the active input source on the specified monitors.
 
 ### BySource (Default)
 ```
-Set-MonitorInput -Monitor <VCPMonitor[]> [-Source] <MonitorInputSource> [<CommonParameters>]
+Set-MonitorInput -Monitor <VCPMonitor[]> [-Source] <String> [<CommonParameters>]
 ```
 
 ### ByValue
@@ -78,13 +78,20 @@ Accept wildcard characters: False
 ```
 
 ### -Source
-The MCCS-spec input source to switch to.
+The MCCS-spec input source to switch to. Accepted values:
+Vga1, Vga2, Dvi1, Dvi2, Composite1, Composite2, SVideo1, SVideo2,
+Tuner1, Tuner2, Tuner3, Component1, Component2, Component3,
+DisplayPort1, DisplayPort2, Hdmi1, Hdmi2.
+
+When the -Monitor parameter is also bound, tab completion filters this
+list to the values that monitor advertises in its DDC/CI capability
+string. For inputs that aren't in the MCCS spec (e.g. USB-C), use the
+-Value parameter instead.
 
 ```yaml
-Type: MonitorInputSource
+Type: String
 Parameter Sets: BySource
 Aliases:
-Accepted values: Vga1, Vga2, Dvi1, Dvi2, Composite1, Composite2, SVideo1, SVideo2, Tuner1, Tuner2, Tuner3, Component1, Component2, Component3, DisplayPort1, DisplayPort2, Hdmi1, Hdmi2
 
 Required: True
 Position: 1
