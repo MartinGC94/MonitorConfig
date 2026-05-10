@@ -66,6 +66,16 @@ namespace MartinGC94.MonitorConfig.API.VCP
             return new BrightnessInfo(brightnessLevel, minBrightness, maxBrightness);
         }
 
+        public MonitorInputInfo GetInputInfo()
+        {
+            return new MonitorInputInfo(GetVCPFeatureResponse(KnownVcpCodes.InputSelect).CurrentValue);
+        }
+
+        public void SetInputSource(uint value)
+        {
+            SetVCPValue(KnownVcpCodes.InputSelect, value);
+        }
+
         public void DegaussMonitor()
         {
             if (!NativeMethods.DegaussMonitor(physicalMonitorHandle))

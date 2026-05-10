@@ -1,3 +1,8 @@
+2.2.0:
+    Added Get-MonitorInput and Set-MonitorInput cmdlets for reading and writing
+    VCP code 0x60 (Input Select). Set-MonitorInput accepts either a typed
+    MonitorInputSource (MCCS-spec values such as DisplayPort1, Hdmi1) or a raw
+    UInt32 Value for vendor-specific inputs (e.g. USB-C).
 2.1.0:
     Updated the errors to be more descriptive when failing to fetch monitors.
 2.0:
