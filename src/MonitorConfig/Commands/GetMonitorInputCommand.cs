@@ -12,7 +12,7 @@ namespace MartinGC94.MonitorConfig.Commands
     {
         #region parameters
         [MonitorArgTransformer()]
-        [ArgumentCompleter(typeof(DeviceNameCompleter))]
+        [ArgumentCompleter(typeof(VCPDeviceNameCompleter))]
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public VCPMonitor[] Monitor { get; set; }
         #endregion
@@ -21,9 +21,11 @@ namespace MartinGC94.MonitorConfig.Commands
         {
             foreach (VCPMonitor inputMonitor in Monitor)
             {
+                byte[] possibleValues = MonitorInputCompleterHelper.TryGetSupportedValues(inputMonitor);
+
                 try
                 {
-                    WriteObject(inputMonitor.GetInputInfo());
+                    WriteObject(inputMonitor.GetInputInfo(possibleValues));
                 }
                 catch (Win32Exception error)
                 {

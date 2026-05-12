@@ -10,80 +10,62 @@ using System.Management.Automation.Language;
 namespace MartinGC94.MonitorConfig.API
 {
     /// <summary>
-    /// Completer for Set-MonitorInput -Source. When the -Monitor parameter
-    /// is bound (by object or device-name string), the suggestions are
-    /// filtered to MCCS-spec values that monitor advertises in its
-    /// capability string. Falls back to the full enum if the monitor is
-    /// unknown or advertises no MCCS-mapped value.
+    /// Completer for Set-MonitorInput -Source. When the -Monitor parameter is
+    /// bound (by object or device-name string), suggestions come from the
+    /// monitor's advertised values for VCP 0x60. MCCS-spec values are offered
+    /// as friendly names (Hdmi1, DisplayPort1, etc.) and vendor-specific
+    /// values (e.g. USB-C) are offered as hex. Falls back to the full MCCS
+    /// list when no monitor is bound.
     /// </summary>
     internal sealed class MonitorInputSourceCompleter : IArgumentCompleter
     {
         public IEnumerable<CompletionResult> CompleteArgument(string commandName, string parameterName, string wordToComplete, CommandAst commandAst, IDictionary fakeBoundParameters)
         {
             var pattern = WildcardPattern.Get((wordToComplete ?? string.Empty).Trim('\'', '"') + "*", WildcardOptions.IgnoreCase);
-            byte[] supported = MonitorInputCompleterHelper.GetSupportedValuesFromBoundMonitor(fakeBoundParameters);
+            byte[] supported = MonitorInputCompleterHelper.TryGetSupportedValuesFromBoundMonitor(fakeBoundParameters);
 
-            var allSources = (MonitorInputSource[])Enum.GetValues(typeof(MonitorInputSource));
-            MonitorInputSource[] suggestions = allSources;
             if (supported != null && supported.Length > 0)
             {
-                var supportedSet = new HashSet<byte>(supported);
-                var filtered = Array.FindAll(allSources, s => supportedSet.Contains((byte)s));
-                if (filtered.Length > 0)
+                foreach (byte value in supported)
                 {
-                    suggestions = filtered;
+                    foreach (var result in BuildCompletions(value, pattern))
+                    {
+                        yield return result;
+                    }
                 }
+
+                yield break;
             }
 
-            foreach (var source in suggestions)
+            foreach (MonitorInputSource source in (MonitorInputSource[])Enum.GetValues(typeof(MonitorInputSource)))
             {
-                string name = source.ToString();
-                if (pattern.IsMatch(name))
+                foreach (var result in BuildCompletions((byte)source, pattern))
                 {
-                    string tooltip = string.Format(CultureInfo.InvariantCulture, "0x{0:X2} ({1})", (byte)source, name);
-                    yield return new CompletionResult(name, name, CompletionResultType.ParameterValue, tooltip);
+                    yield return result;
                 }
             }
         }
-    }
 
-    /// <summary>
-    /// Completer for Set-MonitorInput -Value. When the -Monitor parameter is
-    /// bound, suggestions come from the monitor's advertised values for VCP
-    /// 0x60 (this is the right list for discovering vendor-specific inputs
-    /// such as USB-C, which is not in the MCCS spec). Falls back to the
-    /// MCCS values when the monitor is unknown.
-    /// </summary>
-    internal sealed class MonitorInputValueCompleter : IArgumentCompleter
-    {
-        public IEnumerable<CompletionResult> CompleteArgument(string commandName, string parameterName, string wordToComplete, CommandAst commandAst, IDictionary fakeBoundParameters)
+        private static IEnumerable<CompletionResult> BuildCompletions(byte value, WildcardPattern pattern)
         {
-            var pattern = WildcardPattern.Get((wordToComplete ?? string.Empty).Trim('\'', '"') + "*", WildcardOptions.IgnoreCase);
-            byte[] supported = MonitorInputCompleterHelper.GetSupportedValuesFromBoundMonitor(fakeBoundParameters);
+            string hex = string.Format(CultureInfo.InvariantCulture, "0x{0:X2}", value);
+            string dec = value.ToString(CultureInfo.InvariantCulture);
 
-            byte[] toSuggest;
-            if (supported != null && supported.Length > 0)
+            if (Enum.IsDefined(typeof(MonitorInputSource), value))
             {
-                toSuggest = supported;
+                string name = ((MonitorInputSource)value).ToString();
+                string tooltip = string.Format(CultureInfo.InvariantCulture, "{0} ({1}) - {2}", hex, dec, name);
+                if (pattern.IsMatch(name) || pattern.IsMatch(hex) || pattern.IsMatch(dec))
+                {
+                    yield return new CompletionResult(name, name, CompletionResultType.ParameterValue, tooltip);
+                }
             }
             else
             {
-                var allSources = (MonitorInputSource[])Enum.GetValues(typeof(MonitorInputSource));
-                toSuggest = Array.ConvertAll(allSources, s => (byte)s);
-            }
-
-            foreach (byte value in toSuggest)
-            {
-                string asHex = string.Format(CultureInfo.InvariantCulture, "0x{0:X2}", value);
-                string asDec = value.ToString(CultureInfo.InvariantCulture);
-                string sourceName = Enum.IsDefined(typeof(MonitorInputSource), value)
-                    ? ((MonitorInputSource)value).ToString()
-                    : "vendor-specific";
-                string tooltip = string.Format(CultureInfo.InvariantCulture, "{0} ({1}) - {2}", asHex, asDec, sourceName);
-
-                if (pattern.IsMatch(asHex) || pattern.IsMatch(asDec) || pattern.IsMatch(sourceName))
+                string tooltip = string.Format(CultureInfo.InvariantCulture, "{0} ({1}) - vendor-specific", hex, dec);
+                if (pattern.IsMatch(hex) || pattern.IsMatch(dec))
                 {
-                    yield return new CompletionResult(asHex, tooltip, CompletionResultType.ParameterValue, tooltip);
+                    yield return new CompletionResult(hex, hex, CompletionResultType.ParameterValue, tooltip);
                 }
             }
         }
@@ -91,9 +73,8 @@ namespace MartinGC94.MonitorConfig.API
 
     internal static class MonitorInputCompleterHelper
     {
-        public static byte[] GetSupportedValuesFromBoundMonitor(IDictionary fakeBoundParameters)
+        public static byte[] TryGetSupportedValues(VCPMonitor monitor)
         {
-            VCPMonitor monitor = ResolveFirstVCPMonitor(fakeBoundParameters);
             if (monitor == null)
             {
                 return null;
@@ -116,7 +97,109 @@ namespace MartinGC94.MonitorConfig.API
             }
             catch
             {
-                // Best-effort completion; never throw out of CompleteArgument.
+                // Best-effort lookup; never throw out of completion or out of the get-cmdlet's discovery path.
+            }
+
+            return null;
+        }
+
+        private static readonly object _capsCacheLock = new object();
+        private static readonly Dictionary<string, byte[]> _capsCache = new Dictionary<string, byte[]>(StringComparer.OrdinalIgnoreCase);
+        private static HashSet<string> _capsCacheDisplaySnapshot;
+
+        /// <summary>
+        /// Returns the current set of logical-display device names via a cheap Win32
+        /// enumeration. Used as a fingerprint to detect monitor hot-plug between cache
+        /// reads — any add/remove changes the set, so cache entries get invalidated
+        /// automatically without a wall-clock TTL.
+        /// </summary>
+        internal static HashSet<string> SnapshotLogicalDisplayNames()
+        {
+            var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var d in LogicalDisplay.GetMatchingLogicalDisplays(null))
+            {
+                if (!string.IsNullOrEmpty(d.DeviceName))
+                {
+                    set.Add(d.DeviceName);
+                }
+            }
+            return set;
+        }
+
+        /// <summary>
+        /// Completer-side variant: caches the parsed VCP 0x60 ValidValues by a key derived
+        /// from the bound -Monitor so repeated Tab presses don't reissue DDC/CI capability
+        /// reads. The cache lives for the lifetime of the PowerShell session and is
+        /// invalidated when the set of logical displays changes (monitor hot-plug). The
+        /// cmdlet path uses the uncached <see cref="TryGetSupportedValues"/>.
+        /// </summary>
+        public static byte[] TryGetSupportedValuesFromBoundMonitor(IDictionary fakeBoundParameters)
+        {
+            string cacheKey = TryBuildCacheKey(fakeBoundParameters);
+            if (cacheKey == null)
+            {
+                return null;
+            }
+
+            HashSet<string> currentSnapshot = SnapshotLogicalDisplayNames();
+
+            lock (_capsCacheLock)
+            {
+                if (_capsCacheDisplaySnapshot != null && !_capsCacheDisplaySnapshot.SetEquals(currentSnapshot))
+                {
+                    _capsCache.Clear();
+                }
+                _capsCacheDisplaySnapshot = currentSnapshot;
+
+                if (_capsCache.TryGetValue(cacheKey, out byte[] cached))
+                {
+                    return cached;
+                }
+            }
+
+            byte[] values = TryGetSupportedValues(ResolveFirstVCPMonitor(fakeBoundParameters));
+
+            lock (_capsCacheLock)
+            {
+                _capsCache[cacheKey] = values;
+            }
+            return values;
+        }
+
+        private static string TryBuildCacheKey(IDictionary fakeBoundParameters)
+        {
+            if (fakeBoundParameters == null || !fakeBoundParameters.Contains("Monitor"))
+            {
+                return null;
+            }
+
+            object raw = fakeBoundParameters["Monitor"];
+            object unwrapped = raw is PSObject pso ? pso.BaseObject : raw;
+
+            if (unwrapped is VCPMonitor direct && !string.IsNullOrEmpty(direct.InstanceName))
+            {
+                return "vcp:" + direct.InstanceName;
+            }
+
+            if (unwrapped is string s && !string.IsNullOrEmpty(s))
+            {
+                return "str:" + s;
+            }
+
+            if (unwrapped is IEnumerable enumerable && !(unwrapped is string))
+            {
+                foreach (var item in enumerable)
+                {
+                    object unwrappedItem = item is PSObject p ? p.BaseObject : item;
+                    if (unwrappedItem is VCPMonitor v && !string.IsNullOrEmpty(v.InstanceName))
+                    {
+                        return "vcp:" + v.InstanceName;
+                    }
+                    if (unwrappedItem is string str && !string.IsNullOrEmpty(str))
+                    {
+                        return "str:" + str;
+                    }
+                }
             }
 
             return null;
@@ -165,7 +248,10 @@ namespace MartinGC94.MonitorConfig.API
 
             try
             {
-                var cmd = new GetMonitorCommand { DeviceName = deviceNames.ToArray() };
+                var cmd = new GetMonitorCommand()
+                {
+                    DeviceName = deviceNames.ToArray()
+                };
                 foreach (var item in cmd.Invoke())
                 {
                     object unwrappedItem = item is PSObject p ? p.BaseObject : item;

@@ -17,10 +17,13 @@ Get-MonitorInput -Monitor <VCPMonitor[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Reads VCP code 0x60 (Input Select) on the specified monitor(s) and returns a
-`MonitorInputInfo` object with both the raw value and, when it matches an
-MCCS-spec input, the typed `CurrentSource`. Vendor-specific inputs (USB-C and
-similar) report the raw value with `CurrentSource` left null.
+Reads VCP code 0x60 (Input Select) on the specified monitor(s) and returns a `MonitorInputInfo` object with:
+
+- `CurrentValue` — the raw VCP value currently active.
+
+- `CurrentSource` — the typed `MonitorInputSource` when the raw value matches an MCCS-spec input; null for vendor-specific values (USB-C and similar).
+
+- `PossibleValues` — the raw byte values the monitor advertises for VCP 0x60 in its DDC/CI capability string. Null when the capability string is unavailable or doesn't list VCP 0x60.
 
 ## EXAMPLES
 
@@ -28,10 +31,10 @@ similar) report the raw value with `CurrentSource` left null.
 ```powershell
 PS C:\> Get-Monitor | Get-MonitorInput
 
-CurrentValue CurrentSource
------------- -------------
-          17 Hdmi1
-          17 Hdmi1
+CurrentValue CurrentSource PossibleValues
+------------ ------------- --------------
+          17 Hdmi1         {15, 17, 27}
+          17 Hdmi1         {15, 17, 27}
 ```
 
 ### Example 2
@@ -39,6 +42,25 @@ CurrentValue CurrentSource
 PS C:\> Get-Monitor -Primary | Get-MonitorInput | Select-Object -ExpandProperty CurrentSource
 Hdmi1
 ```
+
+### Example 3
+```powershell
+PS C:\> Get-Monitor -Primary | Get-MonitorInput | ForEach-Object {
+>>     $_.PossibleValues | ForEach-Object {
+>>         if ([Enum]::IsDefined([MartinGC94.MonitorConfig.API.VCP.MonitorInputSource], [byte]$_)) {
+>>             [MartinGC94.MonitorConfig.API.VCP.MonitorInputSource]$_
+>>         } else {
+>>             '0x{0:X2}' -f $_
+>>         }
+>>     }
+>> }
+DisplayPort1
+Hdmi1
+0x1B
+```
+
+Maps `PossibleValues` to friendly names where possible, falling back to hex for
+vendor-specific values.
 
 ## PARAMETERS
 
