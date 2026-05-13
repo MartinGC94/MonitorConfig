@@ -56,6 +56,46 @@
          </TableControl>
       </View>
       <View>
+         <Name>MonitorInputInfo</Name>
+         <ViewSelectedBy>
+            <TypeName>MartinGC94.MonitorConfig.API.VCP.MonitorInputInfo</TypeName>
+         </ViewSelectedBy>
+         <TableControl>
+            <TableHeaders>
+               <TableColumnHeader>
+                  <Label>CurrentValue</Label>
+                  <Alignment>right</Alignment>
+               </TableColumnHeader>
+               <TableColumnHeader>
+                  <Label>CurrentSource</Label>
+                  <Alignment>left</Alignment>
+               </TableColumnHeader>
+               <TableColumnHeader>
+                  <Label>PossibleValues</Label>
+                  <Alignment>left</Alignment>
+               </TableColumnHeader>
+            </TableHeaders>
+            <TableRowEntries>
+               <TableRowEntry>
+                  <TableColumnItems>
+                     <TableColumnItem>
+                        <PropertyName>CurrentValue</PropertyName>
+                        <Alignment>right</Alignment>
+                     </TableColumnItem>
+                     <TableColumnItem>
+                        <PropertyName>CurrentSource</PropertyName>
+                        <Alignment>left</Alignment>
+                     </TableColumnItem>
+                     <TableColumnItem>
+                        <PropertyName>PossibleValues</PropertyName>
+                        <Alignment>left</Alignment>
+                     </TableColumnItem>
+                  </TableColumnItems>
+               </TableRowEntry>
+            </TableRowEntries>
+         </TableControl>
+      </View>
+      <View>
          <Name>ParsedVCPCode</Name>
          <ViewSelectedBy>
             <TypeName>MartinGC94.MonitorConfig.API.VCP.ParsedVCPCode</TypeName>

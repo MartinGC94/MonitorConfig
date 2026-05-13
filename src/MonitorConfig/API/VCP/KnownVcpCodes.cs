@@ -5,6 +5,7 @@
     /// </summary>
     internal sealed class KnownVcpCodes
     {
+        public const byte InputSelect = 0x60;
         public const byte ColorSaturation = 0x8A;
         public const byte RedSaturation = 0x59;
         public const byte YellowSaturation = 0x5A;
