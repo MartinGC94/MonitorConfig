@@ -7,7 +7,7 @@ using System.Management.Automation.Language;
 
 namespace MartinGC94.MonitorConfig.API.ParamAttributes
 {
-    internal sealed class VCPCodeCompleter : IArgumentCompleter
+    public sealed class VCPCodeCompleter : IArgumentCompleter
     {
         public IEnumerable<CompletionResult> CompleteArgument(string commandName, string parameterName, string wordToComplete, CommandAst commandAst, IDictionary fakeBoundParameters)
         {

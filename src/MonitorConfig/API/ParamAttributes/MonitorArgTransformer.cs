@@ -5,7 +5,7 @@ using System.Management.Automation;
 
 namespace MartinGC94.MonitorConfig.API.ParamAttributes
 {
-    internal sealed class MonitorArgTransformer : ArgumentTransformationAttribute
+    public sealed class MonitorArgTransformer : ArgumentTransformationAttribute
     {
         public override object Transform(EngineIntrinsics engineIntrinsics, object inputData)
         {

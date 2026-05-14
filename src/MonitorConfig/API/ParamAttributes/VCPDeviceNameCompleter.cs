@@ -17,7 +17,7 @@ namespace MartinGC94.MonitorConfig.API.ParamAttributes
     /// set of logical displays changes (monitor hot-plug), so users don't pay the
     /// enumeration cost on every Tab press.
     /// </summary>
-    internal sealed class VCPDeviceNameCompleter : IArgumentCompleter
+    public sealed class VCPDeviceNameCompleter : IArgumentCompleter
     {
         private static readonly object _cacheLock = new object();
         private static string[] _cachedNames;

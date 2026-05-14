@@ -17,7 +17,7 @@ namespace MartinGC94.MonitorConfig.API.ParamAttributes
     /// values (e.g. USB-C) are offered as hex. Falls back to the full MCCS
     /// list when no monitor is bound.
     /// </summary>
-    internal sealed class MonitorInputSourceCompleter : IArgumentCompleter
+    public sealed class MonitorInputSourceCompleter : IArgumentCompleter
     {
         public IEnumerable<CompletionResult> CompleteArgument(string commandName, string parameterName, string wordToComplete, CommandAst commandAst, IDictionary fakeBoundParameters)
         {
