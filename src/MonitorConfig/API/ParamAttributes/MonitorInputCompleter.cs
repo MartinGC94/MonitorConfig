@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Management.Automation;
 using System.Management.Automation.Language;
 
-namespace MartinGC94.MonitorConfig.API
+namespace MartinGC94.MonitorConfig.API.ParamAttributes
 {
     /// <summary>
     /// Completer for Set-MonitorInput -Source. When the -Monitor parameter is

@@ -1,8 +1,8 @@
 using MartinGC94.MonitorConfig.API.VCP;
 using System.Management.Automation;
 using System;
-using MartinGC94.MonitorConfig.API;
 using System.ComponentModel;
+using MartinGC94.MonitorConfig.API.ParamAttributes;
 
 namespace MartinGC94.MonitorConfig.Commands
 {

@@ -1,8 +1,9 @@
+using MartinGC94.MonitorConfig.API.VCP;
 using System;
 using System.Globalization;
 using System.Management.Automation;
 
-namespace MartinGC94.MonitorConfig.API.VCP
+namespace MartinGC94.MonitorConfig.API.ParamAttributes
 {
     /// <summary>
     /// Converts known input-source names (e.g. "Hdmi1") and hex strings

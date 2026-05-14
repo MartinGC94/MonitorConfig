@@ -1,4 +1,5 @@
 using MartinGC94.MonitorConfig.API;
+using MartinGC94.MonitorConfig.API.ParamAttributes;
 using MartinGC94.MonitorConfig.API.VCP;
 using MartinGC94.MonitorConfig.API.WMI;
 using MartinGC94.MonitorConfig.Native;

@@ -1,4 +1,5 @@
 ﻿using MartinGC94.MonitorConfig.API;
+using MartinGC94.MonitorConfig.API.ParamAttributes;
 using System;
 using System.ComponentModel;
 using System.Management.Automation;

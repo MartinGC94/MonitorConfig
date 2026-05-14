@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using System.Management.Automation.Language;
 
-namespace MartinGC94.MonitorConfig.API
+namespace MartinGC94.MonitorConfig.API.ParamAttributes
 {
     /// <summary>
     /// Completer for the -Monitor parameter on cmdlets that require a VCP-capable

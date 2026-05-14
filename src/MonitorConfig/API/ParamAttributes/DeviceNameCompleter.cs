@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using System.Management.Automation.Language;
 
-namespace MartinGC94.MonitorConfig.API
+namespace MartinGC94.MonitorConfig.API.ParamAttributes
 {
     internal sealed class DeviceNameCompleter : IArgumentCompleter
     {

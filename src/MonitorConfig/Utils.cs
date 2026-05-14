@@ -1,3 +1,4 @@
+using MartinGC94.MonitorConfig.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -5,7 +6,7 @@ using System.IO;
 using System.Management.Automation;
 using System.Security;
 
-namespace MartinGC94.MonitorConfig.API
+namespace MartinGC94.MonitorConfig
 {
     internal static class Utils
     {

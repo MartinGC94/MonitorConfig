@@ -5,6 +5,7 @@ using System.Management.Automation;
 using System;
 using System.ComponentModel;
 using Microsoft.Management.Infrastructure;
+using MartinGC94.MonitorConfig.API.ParamAttributes;
 
 namespace MartinGC94.MonitorConfig.Commands
 {
