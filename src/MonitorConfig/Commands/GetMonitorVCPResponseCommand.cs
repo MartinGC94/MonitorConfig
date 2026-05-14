@@ -12,7 +12,7 @@ namespace MartinGC94.MonitorConfig.Commands
     {
         #region Parameters
         [MonitorArgTransformer()]
-        [ArgumentCompleter(typeof(DeviceNameCompleter))]
+        [ArgumentCompleter(typeof(VCPDeviceNameCompleter))]
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public VCPMonitor[] Monitor { get; set; }
 
