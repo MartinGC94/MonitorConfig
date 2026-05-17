@@ -15,13 +15,19 @@ namespace MartinGC94.MonitorConfig.Commands
         [ArgumentCompleter(typeof(VCPDeviceNameCompleter))]
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public VCPMonitor[] Monitor { get; set; }
+
+        [Parameter]
+        public SwitchParameter SkipSupportedValues { get; set; }
         #endregion
 
         protected override void ProcessRecord()
         {
             foreach (VCPMonitor inputMonitor in Monitor)
             {
-                byte[] possibleValues = MonitorInputCompleterHelper.TryGetSupportedValues(inputMonitor);
+
+                byte[] possibleValues = SkipSupportedValues
+                    ? null
+                    : MonitorInputCompleterHelper.TryGetSupportedValues(inputMonitor);
                 MonitorInputInfo inputInfo;
                 try
                 {

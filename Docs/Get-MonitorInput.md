@@ -13,17 +13,17 @@ Gets the currently active input source on the specified monitors.
 ## SYNTAX
 
 ```
-Get-MonitorInput -Monitor <VCPMonitor[]> [<CommonParameters>]
+Get-MonitorInput [-Monitor] <VCPMonitor[]> [-SkipSupportedValues] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Reads VCP code 0x60 (Input Select) on the specified monitor(s) and returns a `MonitorInputInfo` object with:
 
-- `CurrentValue` — the raw VCP value currently active.
+- `CurrentValue` - the raw VCP value currently active.
 
-- `CurrentSource` — the typed `MonitorInputSource` when the raw value matches an MCCS-spec input; null for vendor-specific values (USB-C and similar).
+- `CurrentSource` - the typed `MonitorInputSource` when the raw value matches an MCCS-spec input; null for vendor-specific values (USB-C and similar).
 
-- `PossibleValues` — the raw byte values the monitor advertises for VCP 0x60 in its DDC/CI capability string. Null when the capability string is unavailable or doesn't list VCP 0x60.
+- `PossibleValues` - the raw byte values the monitor advertises for VCP 0x60 in its DDC/CI capability string. Null when the capability string is unavailable or doesn't list VCP 0x60.
 
 ## EXAMPLES
 
@@ -77,6 +77,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -SkipSupportedValues
+Skips getting the supported values for input switching.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
