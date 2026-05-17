@@ -94,7 +94,7 @@ namespace MartinGC94.MonitorConfig.API
             var result = new LogicalDisplay();
             NativeMethods.EnumMonitorsDelegate callback = (hMonitor, hdcMonitor, lprcMonitor, dwData) =>
             {
-                var info = GetMonitorInfoFromHandle(hMonitor);
+                MonitorInfoExW info = GetMonitorInfoFromHandle(hMonitor);
                 if (info.dwFlags == MONITORINFOF_PRIMARY)
                 {
                     // Primary display has been found; stop enumeration.
