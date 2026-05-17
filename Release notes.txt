@@ -1,10 +1,10 @@
 2.2.0:
-    Added Get-MonitorInput and Set-MonitorInput cmdlets for reading and writing
-    VCP code 0x60 (Input Select). Set-MonitorInput's -Source parameter accepts
-    either a friendly name (Hdmi1, DisplayPort1, etc.) or a raw numeric value
-    such as 0x1B for vendor-specific inputs (e.g. USB-C). Get-MonitorInput
-    returns the current value alongside the values the monitor advertises in
-    its capability string.
+    Added Get-MonitorInput and Set-MonitorInput cmdlets for reading/setting the input source. (Thanks @yotsuda)
+    Made the parameter attributes used for MonitorConfig commands public.
+        They can be found in the [MartinGC94.MonitorConfig.API.ParamAttributes] namespace.
+        They are intended to be used on parameters for custom functions that wrap specific VCP codes to make the UX similar to official MonitorConfig commands.
+    Updated the completer used for VCP exclusive commands so that it excludes WMI managed displays from the completion results.
+    Improved the error handling by catching more terminating errors and by throwing specific "ApiException" errors rather than the generic "System.Exception" errors.
 2.1.0:
     Updated the errors to be more descriptive when failing to fetch monitors.
 2.0:

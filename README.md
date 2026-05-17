@@ -44,3 +44,34 @@ VCPCode Name                                 CurrentValue MaxValue Description
    0x08 Restore Factory Color Defaults                  0        0 Restore factory defaults for color settings.
    0x10 Luminance                                      39      100 Luminance of the image (Brightness control).
 ```
+
+### Creating custom wrapper functions
+
+The module already includes a number of high level commands for managing common monitor settings like brightness and input source but what if you want to do more?
+Then you'd use `Get-MonitorVCPResponse` and `Set-MonitorVCPValue` to read/write specific VCP code values.
+These functions can be put inside wrapper functions with custom attributes to add the same completion/argument transformation as native MonitorConfig commands have.
+Here's an example for making a function to change the power state:
+```powershell
+function Set-CustomMonitorPowerState
+{
+    Param
+    (
+        [Parameter(Mandatory, ValueFromPipeline, Position = 0)]
+        [ArgumentCompleter([MartinGC94.MonitorConfig.API.ParamAttributes.VCPDeviceNameCompleter])]
+        [MartinGC94.MonitorConfig.API.ParamAttributes.MonitorArgTransformer()]
+        [MartinGC94.MonitorConfig.API.VCP.VCPMonitor[]]
+        $Monitor,
+
+        [Parameter(Mandatory, Position = 1)]
+        [ValidateRange(1, 5)]
+        [uint32]
+        $PowerState
+    )
+    Process
+    {
+        $Monitor | Set-MonitorVCPValue -VCPCode 0xD6 -Value $PowerState
+    }
+}
+```
+
+Note the type along with the 2 custom attributes on the Monitor parameter. These will add the completion for string values like `\\.\DISPLAY1` and the argument transformer needed to convert those same strings to actual monitor objects.
