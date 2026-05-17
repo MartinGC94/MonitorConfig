@@ -27,7 +27,7 @@ namespace MartinGC94.MonitorConfig
         }
 
         /// <summary>Gets a relevant error category based on the exception input.</summary>
-        internal static ErrorCategory GetErrorCategory(Exception exception)
+        internal static ErrorCategory GetErrorCategory(this Exception exception)
         {
             switch (exception)
             {
@@ -42,16 +42,18 @@ namespace MartinGC94.MonitorConfig
                             return ErrorCategory.PermissionDenied;
 
                         case 6:
+                        case ERROR_NOT_SUPPORTED:
                             return ErrorCategory.InvalidOperation;
 
                         case 87:
                             return ErrorCategory.InvalidArgument;
 
-                        case -1071241844:
-                            return ErrorCategory.ResourceUnavailable;
+                        case ERROR_GRAPHICS_DDCCI_VCP_NOT_SUPPORTED:
+                            return ErrorCategory.NotImplemented;
 
-                        case -2147467259:
-                            return ErrorCategory.DeviceError;
+                        case ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE:
+                        case ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS:
+                            return ErrorCategory.ResourceUnavailable;
 
                         default:
                             return ErrorCategory.NotSpecified;
@@ -83,7 +85,10 @@ namespace MartinGC94.MonitorConfig
             }
         }
 
+        private const int ERROR_NOT_SUPPORTED = 50;
         private const int ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE = -1071241844;
+        private const int ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS = -1071241843;
+        private const int ERROR_GRAPHICS_DDCCI_VCP_NOT_SUPPORTED = -1071241852;
 
         /// <summary>
         /// Returns true if the error indicates that no other operations can be performed, eg a handle is closed.
@@ -95,7 +100,9 @@ namespace MartinGC94.MonitorConfig
 
         internal static bool IsTerminatingErrorCode(int nativeErrorCode)
         {
-            return nativeErrorCode == ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE;
+            return nativeErrorCode == ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE ||
+                nativeErrorCode == ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS ||
+                nativeErrorCode == ERROR_NOT_SUPPORTED;
         }
     }
 }

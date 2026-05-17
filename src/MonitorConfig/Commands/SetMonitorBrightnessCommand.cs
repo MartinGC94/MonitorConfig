@@ -50,9 +50,9 @@ namespace MartinGC94.MonitorConfig.Commands
                         catch (CimException error)
                         {
                             WriteError(new ErrorRecord(
-                            new Exception($"Failed to revert policy due to error: {error.Message}", error),
+                            new ApiException($"Failed to revert policy due to error: {error.Message}", error),
                             "RevertPolicyError",
-                            Utils.GetErrorCategory(error),
+                            error.GetErrorCategory(),
                             wmiMonitor));
                         }
                     }
@@ -66,9 +66,9 @@ namespace MartinGC94.MonitorConfig.Commands
                         catch (CimException error)
                         {
                             WriteError(new ErrorRecord(
-                            new Exception($"Failed to modify ALS state due to error: {error.Message}", error),
+                            new ApiException($"Failed to modify ALS state due to error: {error.Message}", error),
                             "SetALSStateError",
-                            Utils.GetErrorCategory(error),
+                            error.GetErrorCategory(),
                             wmiMonitor));
                         }
                     }
@@ -82,9 +82,9 @@ namespace MartinGC94.MonitorConfig.Commands
                         catch (CimException error)
                         {
                             WriteError(new ErrorRecord(
-                            new Exception($"Failed to modify ALS level due to error: {error.Message}", error),
+                            new ApiException($"Failed to modify ALS level due to error: {error.Message}", error),
                             "SetALSLevelError",
-                            Utils.GetErrorCategory(error),
+                            error.GetErrorCategory(),
                             wmiMonitor));
                         }
                     }
@@ -98,9 +98,9 @@ namespace MartinGC94.MonitorConfig.Commands
                         catch (CimException error)
                         {
                             WriteError(new ErrorRecord(
-                            new Exception($"Failed to change brightness level due to error: {error.Message}", error),
+                            new ApiException($"Failed to change brightness level due to error: {error.Message}", error),
                             "SetWmiBrightnessError",
-                            Utils.GetErrorCategory(error),
+                            error.GetErrorCategory(),
                             wmiMonitor));
                         }
                     }
@@ -110,7 +110,7 @@ namespace MartinGC94.MonitorConfig.Commands
                     if (ParameterSetName.Equals("WMIOptions"))
                     {
                         WriteError(new ErrorRecord(
-                            new Exception($"WMI options cannot be set on display \"{vcpMonitor.InstanceName}\" because it is controlled through VCP"),
+                            new ApiException($"WMI options cannot be set on display \"{vcpMonitor.InstanceName}\" because it is controlled through VCP"),
                             "WMIOptionsSetOnVCPDisplay",
                             ErrorCategory.InvalidOperation,
                             vcpMonitor));
@@ -124,9 +124,9 @@ namespace MartinGC94.MonitorConfig.Commands
                     catch (Win32Exception error)
                     {
                         WriteError(new ErrorRecord(
-                        new Exception($"Failed to change brightness level due to error: {error.Message}", error),
+                        new ApiException($"Failed to change brightness level due to error: {error.Message}", error),
                         "SetBrightnessError",
-                        Utils.GetErrorCategory(error),
+                        error.GetErrorCategory(),
                         vcpMonitor));
                     }
                 }

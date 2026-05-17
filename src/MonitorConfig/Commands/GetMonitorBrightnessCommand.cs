@@ -1,6 +1,5 @@
 ﻿using MartinGC94.MonitorConfig.API;
 using MartinGC94.MonitorConfig.API.ParamAttributes;
-using System;
 using System.ComponentModel;
 using System.Management.Automation;
 
@@ -21,18 +20,22 @@ namespace MartinGC94.MonitorConfig.Commands
         {
             foreach (var inputMonitor in Monitor)
             {
+                BrightnessInfo info;
                 try
                 {
-                    WriteObject(inputMonitor.GetBrightnessInfo());
+                    info = inputMonitor.GetBrightnessInfo();
                 }
                 catch (Win32Exception error)
                 {
                     WriteError(new ErrorRecord(
-                    new Exception($"Failed to get brightness info due to error: {error.Message}", error),
+                    new ApiException($"Failed to get brightness info due to error: {error.Message}", error),
                     "GetBrightnessError",
-                    Utils.GetErrorCategory(error),
+                    error.GetErrorCategory(),
                     inputMonitor));
+                    continue;
                 }
+
+                WriteObject(info);
             }
         }
     }

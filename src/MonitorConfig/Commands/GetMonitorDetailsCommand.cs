@@ -31,7 +31,7 @@ namespace MartinGC94.MonitorConfig.Commands
                 {
                     if (error.IsTerminatingError())
                     {
-                        WriteError(new ErrorRecord(error, "FatalError", ErrorCategory.ResourceUnavailable, inputMonitor));
+                        WriteError(new ErrorRecord(error, "FatalError", error.GetErrorCategory(), inputMonitor));
                         continue;
                     }
 

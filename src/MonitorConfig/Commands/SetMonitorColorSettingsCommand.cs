@@ -1,9 +1,9 @@
-using MartinGC94.MonitorConfig.API.VCP;
-using System.Management.Automation;
-using MartinGC94.MonitorConfig.Native.Enums;
-using System;
-using System.ComponentModel;
+using MartinGC94.MonitorConfig.API;
 using MartinGC94.MonitorConfig.API.ParamAttributes;
+using MartinGC94.MonitorConfig.API.VCP;
+using MartinGC94.MonitorConfig.Native.Enums;
+using System.ComponentModel;
+using System.Management.Automation;
 
 namespace MartinGC94.MonitorConfig.Commands
 {
@@ -136,9 +136,9 @@ namespace MartinGC94.MonitorConfig.Commands
                     catch (Win32Exception error)
                     {
                         WriteError(new ErrorRecord(
-                        new Exception($"Failed to configure GrayScaleExpansion due to error: {error.Message}", error),
+                        new ApiException($"Failed to configure GrayScaleExpansion due to error: {error.Message}", error),
                         "GrayScaleConfigError",
-                        Utils.GetErrorCategory(error),
+                        error.GetErrorCategory(),
                         inputMonitor));
                     }
                 }
@@ -219,9 +219,9 @@ namespace MartinGC94.MonitorConfig.Commands
                     catch (Win32Exception error)
                     {
                         WriteError(new ErrorRecord(
-                        new Exception($"Failed to configure {key} due to error: {error.Message}", error),
+                        new ApiException($"Failed to configure {key} due to error: {error.Message}", error),
                         "ColorConfigError",
-                        Utils.GetErrorCategory(error),
+                        error.GetErrorCategory(),
                         inputMonitor));
                     }
                 }

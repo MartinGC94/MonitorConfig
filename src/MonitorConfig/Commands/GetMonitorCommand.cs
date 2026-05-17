@@ -56,7 +56,7 @@ namespace MartinGC94.MonitorConfig.Commands
             }
             catch (ApiException exception)
             {
-                WriteError(new ErrorRecord(exception, "GetPhysicalMonitors", Utils.GetErrorCategory(exception), logicalDisplay));
+                WriteError(new ErrorRecord(exception, "GetPhysicalMonitors", exception.GetErrorCategory(), logicalDisplay));
                 return;
             }
 
@@ -65,7 +65,7 @@ namespace MartinGC94.MonitorConfig.Commands
             {
                 _ = NativeMethods.DestroyPhysicalMonitors((uint)physicalMonitors.Length, physicalMonitors);
                 WriteError(new ErrorRecord(
-                    new System.Exception($"Found {physicalDisplayInfo.Count} display devices when {physicalMonitors.Length} was expected."),
+                    new ApiException($"Found {physicalDisplayInfo.Count} display devices when {physicalMonitors.Length} was expected."),
                     "DisplayDeviceAndPhysicalMonitorMismatch",
                     ErrorCategory.InvalidResult,
                     logicalDisplay));

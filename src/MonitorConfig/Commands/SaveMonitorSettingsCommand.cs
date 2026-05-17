@@ -1,4 +1,5 @@
-﻿using MartinGC94.MonitorConfig.API.ParamAttributes;
+﻿using MartinGC94.MonitorConfig.API;
+using MartinGC94.MonitorConfig.API.ParamAttributes;
 using MartinGC94.MonitorConfig.API.VCP;
 using System;
 using System.ComponentModel;
@@ -27,9 +28,9 @@ namespace MartinGC94.MonitorConfig.Commands
                 catch (Win32Exception error)
                 {
                     WriteError(new ErrorRecord(
-                    new Exception($"Failed to save monitor settings due to error: {error.Message}", error),
+                    new ApiException($"Failed to save monitor settings due to error: {error.Message}", error),
                     "SaveSettingsError",
-                    Utils.GetErrorCategory(error),
+                    error.GetErrorCategory(),
                     inputMonitor));
                 }
             }
